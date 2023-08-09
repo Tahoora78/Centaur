@@ -69,8 +69,8 @@ class Preprocess:
     def segment_signal(
         self,
         signal: pd.DataFrame,
-        window_size: int = 128,
-        overlap_rate: int = 0.5,
+        window_size: int = 512,
+        overlap_rate: int = 1,
         res_type: str = "dataframe",
     ) -> List[pd.DataFrame]:
         """Sample sensor signals in fixed-width sliding windows of 2.56 sec and 50% overlap (128 readings/window).
@@ -197,7 +197,7 @@ class Preprocess:
     def obtain_min(self, signal) -> np.ndarray:
         return signal.min().values
 
-    def obtain_sma(self, signal, window_size=128) -> np.ndarray:
+    def obtain_sma(self, signal, window_size=512) -> np.ndarray:
         window_second = window_size / self.fs
         return sum(signal.sum().values - self.obtain_min(signal) * len(signal)) / window_second
 
